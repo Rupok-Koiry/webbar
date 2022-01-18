@@ -1,0 +1,74 @@
+<!-- Copyright (c) 2021 8th Wall, Inc. -->
+<!-- head.html is optional; elements will be added to your html head before app.js is loaded. -->
+
+<!-- Use "8thwall:" meta tags to hook into 8th Wall's build process and developer tools. -->
+<meta name="8thwall:renderer" content="aframe:1.2.0" />
+<meta name="8thwall:package" content="@8thwall.xrextras" />
+<meta name="8thwall:package" content="@8thwall.landing-page" />
+
+<!-- Other external scripts and meta tags can also be added. -->
+<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Contrail+One&display=swap"
+  rel="stylesheet"
+/>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript">
+  var url = window.location.pathname;
+  var index = url.lastIndexOf("/");
+  var tmpType = url.substr(index + 1);
+
+  window.portalTypes = ["portal-a", "portal-b"];
+
+  if (portalTypes.includes(tmpType)) {
+    window.portalType = tmpType;
+  }
+
+  Kakao.init("7387fec3bc4d857e4f4fe7711a04c3b8");
+  Kakao.isInitialized();
+
+  function sendLink() {
+    Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "2022 HAPPY NEW YEAR CARD",
+        description: "호랑이처럼 기운 넘치는 한 해 되세요",
+        imageUrl:
+          'https://i.postimg.cc/BZgKcHdN/ar-0112.jpg" alt="ar-0112" border="0"',
+        link: {
+          mobileWebUrl: "www.happynewyearlotte.com/" + window.portalType,
+          webUrl: "www.happynewyearlotte.com/" + window.portalType,
+        },
+      },
+
+      buttons: [
+        {
+          title: "자세히 보기",
+          link: {
+            mobileWebUrl: "www.happynewyearlotte.com/" + window.portalType,
+            webUrl: "www.happynewyearlotte.com/" + window.portalType,
+          },
+        },
+      ],
+    });
+  }
+
+  // function sendLink() {
+  //     Kakao.Link.sendCustom({
+  //         templateId: 68481,
+  //         templateArgs: {
+  //             title: '2022 HAPPY NEW YEAR CARD',
+  //             description: '호랑이처럼 기운 넘치는 한 해 되세요',
+  //         },
+  //     })
+  // }
+
+  //window.history.pushState('portal_a', 'Portal A', 'portal-a');
+  //window.history.pushState('portal_b', 'Portal B', 'portal-b');
+</script>
