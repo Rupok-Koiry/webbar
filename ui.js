@@ -228,10 +228,7 @@ const observer = new MutationObserver(() => {
     document.querySelector(".prompt-button-8w").innerHTML = "취소 Cancel";
     document.querySelector(".button-primary-8w").innerHTML = "허용 Continue";
   }
-  console.log(window.XR8);
-  window.XR8
-    ? startListen()
-    : window.addEventListener("xrextrasloaded", startListen);
+  window.XR8.on("ready", startListen);
 });
 observer.observe(document.body, { childList: true });
 

@@ -3,10 +3,10 @@
 
 const responsiveImmersiveComponent = {
   init() {
-    const onAttach = ({sessionAttributes}) => {
-      const hiderWalls = document.getElementById('hider-walls')
-      const scene = this.el
-      const s = sessionAttributes
+    const onAttach = ({ sessionAttributes }) => {
+      const hiderWalls = document.getElementById("hider-walls");
+      const scene = this.el;
+      const s = sessionAttributes;
       if (
         !s.cameraLinkedToViewer &&
         !s.controlsCamera &&
@@ -15,8 +15,8 @@ const responsiveImmersiveComponent = {
         s.supportsHtmlOverlay &&
         !s.usesMediaDevices &&
         !s.usesWebXr
-      ) {  // Desktop-specific behavior goes here
-      
+      ) {
+        // Desktop-specific behavior goes here
       } else if (
         s.cameraLinkedToViewer &&
         s.controlsCamera &&
@@ -25,14 +25,18 @@ const responsiveImmersiveComponent = {
         !s.supportsHtmlOverlay &&
         !s.usesMediaDevices &&
         s.usesWebXr
-      ) {  // HMD-specific behavior goes here
-        if (this.el.sceneEl.xrSession.environmentBlendMode === 'opaque') {
+      ) {
+        // HMD-specific behavior goes here
+        if (this.el.sceneEl.xrSession.environmentBlendMode === "opaque") {
           // VR HMD (i.e. Oculus Quest) behavior goes here
-        } else if (this.el.sceneEl.xrSession.environmentBlendMode === 'additive' || 'alpha-blend') {
+        } else if (
+          this.el.sceneEl.xrSession.environmentBlendMode === "additive" ||
+          "alpha-blend"
+        ) {
           // AR HMD (i.e. Hololens) behavior goes here
-          scene.setAttribute('tap-to-place-portal', '')
-          scene.setAttribute('prompt-flow', '')
-          scene.sceneEl.camera.el.setAttribute('portal-camera', '')
+          scene.setAttribute("tap-to-place-portal", "");
+          scene.setAttribute("prompt-flow", "");
+          scene.sceneEl.camera.el.setAttribute("portal-camera", "");
         }
       } else if (
         !s.cameraLinkedToViewer &&
@@ -42,18 +46,19 @@ const responsiveImmersiveComponent = {
         s.supportsHtmlOverlay &&
         s.usesMediaDevices &&
         !s.usesWebXr
-      ) {  // Mobile-specific behavior goes here
-        scene.setAttribute('tap-to-place-portal', '')
-        scene.setAttribute('prompt-flow', '')
-        scene.sceneEl.camera.el.setAttribute('portal-camera', '')
+      ) {
+        // Mobile-specific behavior goes here
+        scene.setAttribute("tap-to-place-portal", "");
+        scene.setAttribute("prompt-flow", "");
+        scene.sceneEl.camera.el.setAttribute("portal-camera", "");
       }
-    }
+    };
 
     const onxrloaded = () => {
-      XR8.addCameraPipelineModules([{'name': 'responsiveImmersive', onAttach}])
-    }
-    window.XR8 ? onxrloaded() : window.addEventListener('xrloaded', onxrloaded)
+      XR8.addCameraPipelineModules([{ name: "responsiveImmersive", onAttach }]);
+    };
+    window.XR8.on("ready", onxrloaded);
   },
-}
+};
 
-export {responsiveImmersiveComponent}
+export { responsiveImmersiveComponent };
